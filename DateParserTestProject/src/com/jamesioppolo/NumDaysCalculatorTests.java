@@ -55,4 +55,20 @@ public class NumDaysCalculatorTests {
 		assertTrue(numDays == 366);
 	}
 	
+	@Test
+	public void longRangeTest() {
+		Integer numDays = numDaysCalculator.getDifferenceInDaysBetween(
+			new DateModel(1, 1, 2000),
+			new DateModel(2, 2, 2009));
+		assertTrue(numDays == 3320);
+	}
+	
+	@Test
+	public void extraLongRangeTest() {
+		Integer numDays = numDaysCalculator.getDifferenceInDaysBetween(
+			new DateModel(3, 4, 1905),
+			new DateModel(5, 7, 2006));
+		assertTrue(numDays == 36983);
+	}
+	
 }

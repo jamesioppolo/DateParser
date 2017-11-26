@@ -9,6 +9,9 @@ public class DateParser {
 		this.daysInMonthService = daysInMonthService;
 	}
 	
+	// Parses a date from a string of form "DD MM YYYY" used as input
+	// Uses a regex for validation. Also ensures that the actual days
+	// for the given month is valid, including feburary in leap years.
 	public DateParserResultModel parse(String dateString)
 	{
 		DateParserResultModel result = new DateParserResultModel();
