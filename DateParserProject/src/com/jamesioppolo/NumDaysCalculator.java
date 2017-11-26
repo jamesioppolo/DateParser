@@ -9,10 +9,12 @@ public class NumDaysCalculator {
 		this.daysInMonthService = daysInMonthService;
 	}
 	
+	// Determines the number of days between the two dates as input using 
+	// a 'crawling' routine that iterates through all the days until the end date
 	public int getDifferenceInDaysBetween(DateModel date1, DateModel date2)
 	{
 		int numDays = 0;
-		DateModel crawlingDate = date1;
+		DateModel crawlingDate = new DateModel(date1.day, date1.month, date1.year);
 		
 		if (crawlingDate.equals(date2))
 		{

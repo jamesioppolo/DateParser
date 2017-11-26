@@ -9,6 +9,8 @@ public class DatePairParser {
 		this.dateParser = dateParser;
 	}
 	
+	// Parses the two dates used as input of form "DD MM YYYY, DD MM YYYY".
+	// WIll return result set with the earliest date first
 	public DatePairResultModel parse(String lineInput)
 	{
 		DatePairResultModel result = new DatePairResultModel();
@@ -23,8 +25,16 @@ public class DatePairParser {
 			if (dateResult1.isValid && dateResult2.isValid)
 			{
 				result.isValid = true;
-				result.date1 = dateResult1.date;
-				result.date2 = dateResult2.date;
+				if (dateResult2.date.isGreaterThan(dateResult1.date))
+				{
+					result.date1 = dateResult1.date;
+					result.date2 = dateResult2.date;
+				}
+				else
+				{
+					result.date1 = dateResult2.date;
+					result.date2 = dateResult1.date;
+				}
 			}
 		}
 		
