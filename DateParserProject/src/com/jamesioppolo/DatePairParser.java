@@ -2,6 +2,13 @@ package com.jamesioppolo;
 
 public class DatePairParser {
 	
+	private DateParser dateParser;
+	
+	public DatePairParser(DateParser dateParser)
+	{
+		this.dateParser = dateParser;
+	}
+	
 	public DatePairResultModel parse(String lineInput)
 	{
 		DatePairResultModel result = new DatePairResultModel();
@@ -10,7 +17,6 @@ public class DatePairParser {
 		String[] dates = lineInput.split(", ");
 		if (dates.length == 2)
 		{
-			DateParser dateParser = new DateParser();
 			DateParserResultModel dateResult1 = dateParser.parse(dates[0]);
 			DateParserResultModel dateResult2 = dateParser.parse(dates[1]);
 			

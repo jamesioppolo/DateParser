@@ -9,21 +9,43 @@
 <bean id="dateparserbean" class="com.jamesioppolo.DateParser">
 </bean>
 
+<bean id="daysinmonthservicebean" class="com.jamesioppolo.DaysInMonthService">
+</bean>  
+
 <bean id="datepairparserbean" class="com.jamesioppolo.DatePairParser">
     <constructor-arg>
-      <bean class="com.jamesioppolo.DateParser" />
+      <bean class="com.jamesioppolo.DateParser">
+        <constructor-arg>
+      	  <bean class="com.jamesioppolo.DaysInMonthService" />
+    	</constructor-arg>
+      </bean>
     </constructor-arg>
 </bean>
 
 <bean id="numdayscalculatorbean" class="com.jamesioppolo.NumDaysCalculator">
+    <constructor-arg>
+      <bean class="com.jamesioppolo.DaysInMonthService" />
+    </constructor-arg>
 </bean>  
 
 <bean id="consoleinputdateparser" class="com.jamesioppolo.ConsoleInputDateParser">
     <constructor-arg>
-      <bean class="com.jamesioppolo.DatePairParser" />
+      <bean class="com.jamesioppolo.DatePairParser">
+      	<constructor-arg>
+      	  <bean class="com.jamesioppolo.DateParser">
+      	    <constructor-arg>
+      			<bean class="com.jamesioppolo.DaysInMonthService" />
+    	  	</constructor-arg>
+      	  </bean>
+    	</constructor-arg>
+      </bean>
     </constructor-arg>
     <constructor-arg>
-      <bean class="com.jamesioppolo.NumDaysCalculator" />
+      <bean class="com.jamesioppolo.NumDaysCalculator">
+          <constructor-arg>
+      		<bean class="com.jamesioppolo.DaysInMonthService" />
+    	  </constructor-arg>
+      </bean>
     </constructor-arg>
 </bean>
   

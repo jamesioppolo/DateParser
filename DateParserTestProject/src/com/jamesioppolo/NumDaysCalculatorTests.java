@@ -12,7 +12,7 @@ public class NumDaysCalculatorTests {
 	@Before
 	public void setup()
 	{
-		numDaysCalculator = new NumDaysCalculator();
+		numDaysCalculator = new NumDaysCalculator(new DaysInMonthService());
 	}
 
 	@Test

@@ -11,7 +11,7 @@ public class DateParserTests {
 	@Before
 	public void setup()
 	{
-		dateParser = new DateParser();
+		dateParser = new DateParser(new DaysInMonthService());
 	}
 	
 	@Test
@@ -36,6 +36,15 @@ public class DateParserTests {
 		assertEquals(result.date.day, 11);
 		assertEquals(result.date.month, 12);
 		assertEquals(result.date.year, 2009);
+	}
+	
+	@Test
+	public void testThirtiethFebruary() {
+		// act
+		DateParserResultModel result = dateParser.parse("30 02 2000");
+		
+		// assert
+		assertFalse(result.isValid);
 	}
 	
 	@Test

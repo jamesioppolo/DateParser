@@ -2,6 +2,13 @@ package com.jamesioppolo;
 
 public class DateParser {
 	
+	private DaysInMonthService daysInMonthService;
+	
+	public DateParser(DaysInMonthService daysInMonthService)
+	{
+		this.daysInMonthService = daysInMonthService;
+	}
+	
 	public DateParserResultModel parse(String dateString)
 	{
 		DateParserResultModel result = new DateParserResultModel();
@@ -9,41 +16,45 @@ public class DateParser {
 		
 		if (isDateStringValid(dateString))
 		{
-			String[] dateElements = dateString.split("[ ]");
+			DateModel date = getDateFrom(dateString);
 			
-			Integer day = Integer.parseInt(dateElements[0]);
-			Integer month = Integer.parseInt(dateElements[1]);
-			Integer year = Integer.parseInt(dateElements[2]);
-			
-			if (isDayValid(day) && isMonthValid(month) && isYearValid(year))
+			if (isDayValid(date) && isMonthValid(date) && isYearValid(date))
 			{
 				result.isValid = true;
-				result.date.day = day;
-				result.date.month = month;
-				result.date.year = year;
+				result.date = date;
 			}
 		}
 		
 		return result;
 	}
 	
-	public Boolean isDateStringValid(String dateString)
+	private DateModel getDateFrom(String dateString)
+	{
+		String[] dateElements = dateString.split("[ ]");
+		
+		return new DateModel(
+			Integer.parseInt(dateElements[0]),
+			Integer.parseInt(dateElements[1]),
+			Integer.parseInt(dateElements[2]));
+	}
+	
+	private boolean isDateStringValid(String dateString)
 	{
 		return dateString.matches("\\d{2} \\d{2} \\d{4}");
 	}
 	
-	public Boolean isDayValid(Integer day)
+	private boolean isDayValid(DateModel date)
 	{
-		return day >= 1 && day <= 31;
+		return date.day >= 1 && date.day <= daysInMonthService.getDaysInMonth(date.month, date.year);
 	}
 	
-	public Boolean isMonthValid(Integer month)
+	private boolean isMonthValid(DateModel date)
 	{
-		return month >= 1 && month <= 12;
+		return date.month >= 1 && date.month <= 12;
 	}
 	
-	public Boolean isYearValid(Integer year)
+	private boolean isYearValid(DateModel date)
 	{
-		return year >= 1900 && year <= 2010;
+		return date.year >= 1900 && date.year <= 2010;
 	}
 }
