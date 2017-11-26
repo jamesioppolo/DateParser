@@ -49,13 +49,19 @@ public class DateParserTests {
 	
 	@Test
 	public void testFirstJanTwoThousand_WithAnExtraNumber() {
+		// arrange and act
 		DateParserResultModel result = dateParser.parse("01 01 20002");
+		
+		// assert
 		assertFalse(result.isValid);
 	}
 
 	@Test
 	public void testFirstJanTwoThousand_WithNoSpaces() {
+		// arrange and act
 		DateParserResultModel result = dateParser.parse("010120002");
+		
+		// assert
 		assertFalse(result.isValid);
 	}
 }

@@ -24,12 +24,12 @@ public class DaysInMonthService {
 		return 0;
 	}
 	
-	private Integer getNumberOfDaysInFebruaryFor(int year)
+	private int getNumberOfDaysInFebruaryFor(int year)
 	{
 		return isLeapYear(year) ? 29 : 28;
 	}
 	
-	private Boolean isLeapYear(Integer year)
+	private boolean isLeapYear(int year)
 	{
 		if (year % 4 != 0) {
 			return false;
