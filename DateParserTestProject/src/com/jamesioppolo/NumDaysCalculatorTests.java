@@ -64,6 +64,8 @@ public class NumDaysCalculatorTests {
 	}
 	
 	@Test
+	// Example taken from 
+	// https://www.timeanddate.com/date/durationresult.html?d1=3&m1=4&y1=1905&d2=5&m2=7&y2=2006
 	public void extraLongRangeTest() {
 		Integer numDays = numDaysCalculator.getDifferenceInDaysBetween(
 			new DateModel(3, 4, 1905),
