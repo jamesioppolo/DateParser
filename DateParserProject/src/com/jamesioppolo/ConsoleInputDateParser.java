@@ -34,14 +34,7 @@ public class ConsoleInputDateParser {
 	    else
 	    {	
 	    	int numDays = numDaysCalculator.getDifferenceInDaysBetween(datePairs.date1, datePairs.date2);
-	    	System.out.println(getOrderedDateString(datePairs)+", "+numDays);
+	    	System.out.println(datePairs.getOrderedDateString()+", "+numDays);
 	    }
-	}
-	
-	private String getOrderedDateString(DatePairResultModel datePairs)
-	{
-		return String.format("%02d %02d %4d, %02d %02d %4d", 
-			datePairs.date1.day, datePairs.date1.month, datePairs.date1.year,
-			datePairs.date2.day, datePairs.date2.month, datePairs.date2.year);
 	}
 }
