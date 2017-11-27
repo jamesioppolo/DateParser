@@ -10,7 +10,7 @@ public class ConsoleInputDateParser {
 	private Scanner inputReader;
 
 	// Reads a set of text from system.in and ensures validity before passing date pairs
-	// to the number of days calculators. Prints out the date pairs with the earliest date
+	// to the number of days calculator. Prints out the date pairs with the earliest date
 	// first back to system.out
 	public ConsoleInputDateParser(
 		IDatePairParser datePairParser,
