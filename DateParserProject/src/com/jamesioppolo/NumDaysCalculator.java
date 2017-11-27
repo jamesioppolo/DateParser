@@ -20,15 +20,16 @@ public class NumDaysCalculator implements INumDaysCalculator {
 		if (isDateRangeValid(date1, date2))
 		{
 			// Calculate the number of leap years across the beginning and end dates
-			int numLeapYears = 0; 
+			int numLeapYearsInDateRange = 0; 
 			for (int year = date1.year; year < date2.year+1; year++) 
 			{ 
-				numLeapYears += daysInMonthService.isLeapYear(year) ? 1 : 0; 
+				numLeapYearsInDateRange += daysInMonthService.isLeapYear(year) ? 1 : 0; 
 			} 
 			
 			// Get the total number of days across the beginning and end years,
-			// representing the total upper bound of days between date1 and date2
-			days = 365 * (date2.year - date1.year + 1) + numLeapYears; 
+			// representing the total upper bound of days between date1 and date2,
+			// inclusive of the extra days in the leap years in the range
+			days = 365 * (date2.year - date1.year + 1) + numLeapYearsInDateRange; 
 				
 			// Subtract the number of days into the year for the beginning date
 			days -= getNumDaysIntoYear(date1); 
@@ -47,12 +48,11 @@ public class NumDaysCalculator implements INumDaysCalculator {
 	
 	// Returns the number of days in the year used as input since 1 January
 	int getNumDaysIntoYear(DateModel date){ 
-		int days = 0; 
+		int numDaysIntoYear = date.day; 
 		for (int month = 1; month < date.month; month++){ 
-			days += daysInMonthService.getDaysInMonth(month, date.year);
+			numDaysIntoYear += daysInMonthService.getDaysInMonth(month, date.year);
 		} 
-		days += date.day; 
-		return days; 
+		return numDaysIntoYear; 
 	} 
 	
 	// Returns the number of days in a given year
