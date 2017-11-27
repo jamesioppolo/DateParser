@@ -47,7 +47,7 @@ public class NumDaysCalculator implements INumDaysCalculator {
 	}
 	
 	// Returns the number of days in the year used as input since 1 January
-	int getNumDaysIntoYear(DateModel date){ 
+	private int getNumDaysIntoYear(DateModel date){ 
 		int numDaysIntoYear = date.day; 
 		for (int month = 1; month < date.month; month++){ 
 			numDaysIntoYear += daysInMonthService.getDaysInMonth(month, date.year);
