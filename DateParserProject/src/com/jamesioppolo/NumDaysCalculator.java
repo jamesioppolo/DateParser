@@ -27,23 +27,7 @@ public class NumDaysCalculator implements INumDaysCalculator {
 			do
 			{
 				numDays++;
-				if (hasReachedEndOfMonth(crawlingDate))
-				{
-					crawlingDate.day = 1;
-					if (crawlingDate.month < 12)
-					{
-						crawlingDate.month++;
-					}
-					else
-					{	
-						crawlingDate.month = 1;
-						crawlingDate.year++;
-					}
-				}
-				else
-				{
-					crawlingDate.day++;
-				}
+				crawlingDate = incrementSingleDay(crawlingDate);
 			} while (!crawlingDate.equals(date2));
 		}
 		return numDays;
@@ -53,6 +37,29 @@ public class NumDaysCalculator implements INumDaysCalculator {
 	private boolean isDateRangeValid(DateModel date1, DateModel date2)
 	{
 		return !date1.equals(date2) && date2.isGreaterThan(date1);
+	}
+		
+	// increments the date used as input by a single day
+	private DateModel incrementSingleDay(DateModel crawlingDate)
+	{
+		if (hasReachedEndOfMonth(crawlingDate))
+		{
+			crawlingDate.day = 1;
+			if (crawlingDate.month < 12)
+			{
+				crawlingDate.month++;
+			}
+			else
+			{	
+				crawlingDate.month = 1;
+				crawlingDate.year++;
+			}
+		}
+		else
+		{
+			crawlingDate.day++;
+		}
+		return crawlingDate;
 	}
 	
 	// returns true if the given date is at the end of the month
