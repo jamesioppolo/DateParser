@@ -1,10 +1,15 @@
 package com.jamesioppolo;
 
-public class NumDaysCalculator {
+interface INumDaysCalculator
+{
+	int getDifferenceInDaysBetween(DateModel date1, DateModel date2);
+}
+
+public class NumDaysCalculator implements INumDaysCalculator {
 	
-	private DaysInMonthService daysInMonthService;
+	private IDaysInMonthService daysInMonthService;
 	
-	public NumDaysCalculator(DaysInMonthService daysInMonthService)
+	public NumDaysCalculator(IDaysInMonthService daysInMonthService)
 	{
 		this.daysInMonthService = daysInMonthService;
 	}

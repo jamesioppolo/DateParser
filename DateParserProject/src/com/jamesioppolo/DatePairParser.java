@@ -1,10 +1,15 @@
 package com.jamesioppolo;
 
-public class DatePairParser {
+interface IDatePairParser 
+{
+	DatePairResultModel parse(String lineInput);
+}
+
+public class DatePairParser implements IDatePairParser
+{
+	private IDateParser dateParser;
 	
-	private DateParser dateParser;
-	
-	public DatePairParser(DateParser dateParser)
+	public DatePairParser(IDateParser dateParser)
 	{
 		this.dateParser = dateParser;
 	}

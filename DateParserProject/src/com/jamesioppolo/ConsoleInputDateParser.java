@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class ConsoleInputDateParser {
 
-	private DatePairParser datePairParser;
-	private NumDaysCalculator numDaysCalculator;
+	private IDatePairParser datePairParser;
+	private INumDaysCalculator numDaysCalculator;
 	
 	private Scanner inputReader;
 
@@ -13,8 +13,8 @@ public class ConsoleInputDateParser {
 	// to the number of days calculators. Prints out the date pairs with the earliest date
 	// first back to system.out
 	public ConsoleInputDateParser(
-		DatePairParser datePairParser,
-		NumDaysCalculator numDaysCalculator)
+		IDatePairParser datePairParser,
+		INumDaysCalculator numDaysCalculator)
 	{
 		this.datePairParser = datePairParser;
 		this.numDaysCalculator = numDaysCalculator;

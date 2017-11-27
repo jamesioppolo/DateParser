@@ -1,6 +1,11 @@
 package com.jamesioppolo;
 
-public class DaysInMonthService {
+interface IDaysInMonthService
+{
+	int getDaysInMonth(int month, int year);
+}
+
+public class DaysInMonthService implements IDaysInMonthService {
 	
 	// Returns the number of days for the given month and year used
 	// as input, properly accounting for the extra february day in leap years. 

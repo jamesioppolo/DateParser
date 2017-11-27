@@ -1,10 +1,14 @@
 package com.jamesioppolo;
 
-public class DateParser {
+interface IDateParser {
+	DateParserResultModel parse(String dateString);
+}
+
+public class DateParser implements IDateParser {
 	
-	private DaysInMonthService daysInMonthService;
+	private IDaysInMonthService daysInMonthService;
 	
-	public DateParser(DaysInMonthService daysInMonthService)
+	public DateParser(IDaysInMonthService daysInMonthService)
 	{
 		this.daysInMonthService = daysInMonthService;
 	}
