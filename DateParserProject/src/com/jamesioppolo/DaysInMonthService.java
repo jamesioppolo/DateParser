@@ -3,6 +3,7 @@ package com.jamesioppolo;
 interface IDaysInMonthService
 {
 	int getDaysInMonth(int month, int year);
+	boolean isLeapYear(int year);
 }
 
 public class DaysInMonthService implements IDaysInMonthService {
@@ -14,7 +15,7 @@ public class DaysInMonthService implements IDaysInMonthService {
 		switch(month)
 		{
 			case 1: return 31;
-			case 2: return getNumberOfDaysInFebruaryFor(year);
+			case 2: return isLeapYear(year) ? 29 : 28;
 			case 3: return 31;
 			case 4: return 30;
 			case 5: return 31;
@@ -28,13 +29,8 @@ public class DaysInMonthService implements IDaysInMonthService {
 		}
 		return 0;
 	}
-	
-	private int getNumberOfDaysInFebruaryFor(int year)
-	{
-		return isLeapYear(year) ? 29 : 28;
-	}
-	
-	private boolean isLeapYear(int year)
+		
+	public boolean isLeapYear(int year)
 	{
 		if (year % 4 != 0) {
 			return false;

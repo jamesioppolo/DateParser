@@ -14,23 +14,29 @@ public class NumDaysCalculator implements INumDaysCalculator {
 		this.daysInMonthService = daysInMonthService;
 	}
 	
-	// Determines the number of days between the two dates as input using 
-	// a 'crawling' routine that iterates through all the days until the end date
-	// date1 has to be less than date2
 	public int getDifferenceInDaysBetween(DateModel date1, DateModel date2)
 	{
-		int numDays = 0;
-		
+		int days = 0; 
 		if (isDateRangeValid(date1, date2))
 		{
-			DateModel crawlingDate = new DateModel(date1.day, date1.month, date1.year);
-			do
-			{
-				numDays++;
-				crawlingDate = incrementSingleDay(crawlingDate);
-			} while (!crawlingDate.equals(date2));
+			// Calculate the number of leap years across the beginning and end dates
+			int numLeapYears = 0; 
+			for (int year = date1.year; year < date2.year+1; year++) 
+			{ 
+				numLeapYears += daysInMonthService.isLeapYear(year) ? 1 : 0; 
+			} 
+			
+			// Get the total number of days across the beginning and end years,
+			// representing the total upper bound of days between date1 and date2
+			days = 365 * (date2.year - date1.year + 1) + numLeapYears; 
+				
+			// Subtract the number of days into the year for the beginning date
+			days -= getNumDaysIntoYear(date1); 
+	
+			// Subtract the number of days from date2 until the end of that year
+			days -= getDaysInYear(date2.year) - getNumDaysIntoYear(date2);  
 		}
-		return numDays;
+		return days;
 	}
 	
 	// Checks that the two dates are not equal and that date2 is greater than date1
@@ -38,33 +44,20 @@ public class NumDaysCalculator implements INumDaysCalculator {
 	{
 		return !date1.equals(date2) && date2.isGreaterThan(date1);
 	}
-		
-	// increments the date used as input by a single day
-	private DateModel incrementSingleDay(DateModel crawlingDate)
-	{
-		if (hasReachedEndOfMonth(crawlingDate))
-		{
-			crawlingDate.day = 1;
-			if (crawlingDate.month < 12)
-			{
-				crawlingDate.month++;
-			}
-			else
-			{	
-				crawlingDate.month = 1;
-				crawlingDate.year++;
-			}
-		}
-		else
-		{
-			crawlingDate.day++;
-		}
-		return crawlingDate;
-	}
 	
-	// returns true if the given date is at the end of the month
-	private boolean hasReachedEndOfMonth(DateModel date)
+	// Returns the number of days in the year used as input since 1 January
+	int getNumDaysIntoYear(DateModel date){ 
+		int days = 0; 
+		for (int month = 1; month < date.month; month++){ 
+			days += daysInMonthService.getDaysInMonth(month, date.year);
+		} 
+		days += date.day; 
+		return days; 
+	} 
+	
+	// Returns the number of days in a given year
+	private int getDaysInYear(int year)
 	{
-		return date.day == daysInMonthService.getDaysInMonth(date.month, date.year);
+		return 365 + (daysInMonthService.isLeapYear(year) ? 1 : 0);
 	}
 }
