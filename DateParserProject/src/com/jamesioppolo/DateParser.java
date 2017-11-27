@@ -48,13 +48,13 @@ public class DateParser implements IDateParser {
 		return dateString.matches("\\d{2} \\d{2} \\d{4}");
 	}
 	
-	
 	private boolean isDateValid(DateModel date)
 	{
 		return isDayValid(date) &&
 			isMonthValid(date) &&
 			isYearValid(date);
 	}
+	
 	private boolean isDayValid(DateModel date)
 	{
 		return date.day >= 1 && date.day <= daysInMonthService.getDaysInMonth(date.month, date.year);
