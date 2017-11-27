@@ -16,40 +16,48 @@ public class NumDaysCalculator implements INumDaysCalculator {
 	
 	// Determines the number of days between the two dates as input using 
 	// a 'crawling' routine that iterates through all the days until the end date
+	// date1 has to be less than date2
 	public int getDifferenceInDaysBetween(DateModel date1, DateModel date2)
 	{
 		int numDays = 0;
-		DateModel crawlingDate = new DateModel(date1.day, date1.month, date1.year);
 		
-		if (crawlingDate.equals(date2))
+		if (isDateRangeValid(date1, date2))
 		{
-			return numDays;
-		}
-		
-		do
-		{
-			numDays++;
-			if (crawlingDate.day == daysInMonthService.getDaysInMonth(crawlingDate.month, crawlingDate.year))
+			DateModel crawlingDate = new DateModel(date1.day, date1.month, date1.year);
+			do
 			{
-				crawlingDate.day = 1;
-				if (crawlingDate.month < 12)
+				numDays++;
+				if (hasReachedEndOfMonth(crawlingDate))
 				{
-					crawlingDate.month++;
+					crawlingDate.day = 1;
+					if (crawlingDate.month < 12)
+					{
+						crawlingDate.month++;
+					}
+					else
+					{	
+						crawlingDate.month = 1;
+						crawlingDate.year++;
+					}
 				}
 				else
-				{	
-					crawlingDate.month = 1;
-					crawlingDate.year++;
+				{
+					crawlingDate.day++;
 				}
-			}
-			else
-			{
-				crawlingDate.day++;
-			}
-			
-			
-		} while (!crawlingDate.equals(date2));
-			
+			} while (!crawlingDate.equals(date2));
+		}
 		return numDays;
+	}
+	
+	// Checks that the two dates are not equal and that date2 is greater than date1
+	private boolean isDateRangeValid(DateModel date1, DateModel date2)
+	{
+		return !date1.equals(date2) && date2.isGreaterThan(date1);
+	}
+	
+	// returns true if the given date is at the end of the month
+	private boolean hasReachedEndOfMonth(DateModel date)
+	{
+		return date.day == daysInMonthService.getDaysInMonth(date.month, date.year);
 	}
 }
